@@ -1,1 +1,19 @@
-/* Your code here */
+span{
+    border:black 2px solid;
+
+}
+
+.song{
+    align-content:center; 
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content:left;
+    background-color:grey;
+}
+
+.left{
+    align-self: left;
+}
+.right{
+    align-self: right;
+}
