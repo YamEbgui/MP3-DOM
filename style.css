@@ -1,6 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
 span{
     border:black 2px solid;
+    font-family: 'Luckiest Guy', 'Ariel';
+    margin-left: 2vw;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+    justify-content: space-between;
 
+}
+.song{
+    padding-top: 3vh;
+    background-color:grey;
+}
+
+h1 , h2{
+    text-align: center;
+    font-family: 'Luckiest Guy', 'Ariel';
+}
+input{
+    font-family: 'Luckiest Guy', 'Ariel';
+    width: 18.5vw;
+    position:static;
+}
+button{
+    font-family: 'Luckiest Guy', 'Ariel';
+    left: auto;
+    right: auto;
+}
+img{
+    height:25vh;
+    width:15vw;
+    margin: 2vw;
 }
 
 .song{
@@ -8,7 +38,6 @@ span{
     display: flex;
     flex-direction: row-reverse;
     justify-content:left;
-    background-color:grey;
 }
 
 .left{

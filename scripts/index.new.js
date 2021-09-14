@@ -133,7 +133,13 @@ function addSong({ title, album, artist, duration, coverArt }) {
  * @param {MouseEvent} event - the click event
  */
 function handleSongClickEvent(event) {
-    // Your code here
+    songIdToUse=event.target.parentElement.parentElement.parentElement.id;
+    console.log(songIdToUse);
+    if (event.target.textContent === "Play"){
+
+    }else{
+      removeSong(songIdToUse);
+    }
 }
 
 /**
@@ -160,7 +166,11 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const songDuration = createElement("div", [timeConventor(duration)],  ["song-duration"]);
     const songImage = createElement("img", [],  ["song-image"],  {src : coverArt});
     const songDetails = createElement("div", [songTitle , songAlbum , songArtist], ["song-details"]);
-    const songActions=createElement("div", [createElement("button", "Play", ["play-button"]),createElement("button", "Remove", ["remove-button"])], ["song-actions"]);
+    const playButton = createElement("button", "Play", ["play-button"]);
+    const removeButton = createElement("button", "Remove", ["remove-button"]);
+    const songActions=createElement("div", [playButton , removeButton], ["song-actions"]);
+    playButton.addEventListener("click",handleSongClickEvent);
+    removeButton.addEventListener("click",handleSongClickEvent);
     if (duration < 120){
         songDuration.style.color ="green";
     }else if (duration > 420){
@@ -242,5 +252,3 @@ generatePlaylists()
 
 // Making the add-song-button actually do something
 document.getElementById("add-button").addEventListener("click", handleAddSongEvent)
-removeSong(4);
-removeSong(1);
