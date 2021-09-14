@@ -72,7 +72,17 @@ function timeConventorToSeconds(time){
     return (min * 60) + sec;
 }
 
-function addSongPlayer(title, album, artist, duration, id,coverArt) {
+function removeSongFromPlayerById(songs , id){
+  if (songs.length === 0){
+    return [];
+  }else if(songs[0].id === id){
+    return removeSongFromPlayerById(songs.slice(1) , id);
+  }else{
+    return [songs[0]].concat(removeSongFromPlayerById(songs.slice(1) , id));
+  }
+}
+
+function addSongPlayer(title, album, artist, duration, coverArt, id) {
     let newId=id;
     if (isIdExist(player.songs , id)){
       throw "this id is taken";
@@ -96,16 +106,15 @@ function addSongPlayer(title, album, artist, duration, id,coverArt) {
  * @param {Number} songId - the ID of the song to play
  */
 function playSong(songId) {
-    // Your code here
+
 }
 
-/**
- * Removes a song from the player, and updates the DOM to match.
- *
- * @param {Number} songId - the ID of the song to remove
- */
+
+//Removes a song from the player, and updates the DOM to match.
 function removeSong(songId) {
-    // Your code here
+  player.songs=removeSongFromPlayerById(player.songs , songId);
+  let songEl = document.getElementById(songId+"");
+  songEl.remove();
 }
 
 
@@ -138,7 +147,7 @@ function handleAddSongEvent(event) {
     let artistNew=document.querySelector("#inputs > input:nth-child(3)").value; 
     let durationNew=document.querySelector("#inputs > input:nth-child(4)").value; 
     let coverNew=document.querySelector("#inputs > input:nth-child(5)").value; 
-    console.log({ title : titleNew, album : albumNew, artist : artistNew, duration : durationNew, coverArt : coverNew });
+    console.log( coverNew);
     addSong({ title : titleNew, album : albumNew, artist : artistNew, duration : durationNew, coverArt : coverNew })
 }
 
@@ -159,6 +168,8 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
     }else {
         songDuration.style.color = "yellow";
     }
+    console.log(coverArt);
+    console.log(songImage);
     let left=createElement("div",[songImage,songDetails], ["left"]);
     let right=createElement("div",[songDuration,songActions], ["right"]);
     const children = [left,right]
@@ -231,4 +242,5 @@ generatePlaylists()
 
 // Making the add-song-button actually do something
 document.getElementById("add-button").addEventListener("click", handleAddSongEvent)
-
+removeSong(4);
+removeSong(1);
