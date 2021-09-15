@@ -1,19 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+body{
+    background-color: khaki;
+}
 span{
-    border:black 2px solid;
+    border:black 1px solid;
+    border-radius: 15%;
+    background-color:silver;
+    font-family: 'Luckiest Guy', 'Ariel';
+    margin-top: 1vh;
+    justify-content: space-between;
+    display: block;
+    margin-left: 15vw;
+    height:4vh ;
+    width:15vw ;
+    font-size: 2vw;
+    overflow: hidden;
 
+}
+#add-button{
+    display:table;
+    margin:0 auto;
+    margin-top:1vh;
+    width:100%;
+
+}
+.song{
+    padding-top: 3vh;
+    height: 60vh;
+    background-color:lightslategray;
+    border: black 1px solid;
+    border-radius: 40%;
+    text-align: center;
+    margin-top: 4vh;
+}
+
+h1 , h2{
+    text-align: center;
+    font-family: 'Luckiest Guy', 'Ariel';
+    font-size: 4vw;
+}
+#inputs{
+    display: flex;
+    justify-content: space-between;
+    max-width:100% ;
+    margin: 0vw;
+    
+    
+}
+
+
+input{
+    font-family: 'Luckiest Guy', 'Ariel';
+    width: 18.5vw;
+    max-width: 18.5vw;
+    font-size: 2vw;;
+    position:static;
+    margin:0.2vw;
+}
+button{
+    font-family: 'Luckiest Guy', 'Ariel';
+    display: block;
+    left: auto;
+    right: auto;
+    border:black 1px solid;
+    border-radius: 15%;
+    height: 10vh;
+    width: 20vw;
+    margin: 1vh;
+    font-size: 3vw;
+    overflow: hidden;
+    
+}
+img{
+    border:grey 1px solid;
+    border-radius: 7%;
+    height:25vh;
+    width:15vw;
+    display: block;
+    margin-left: 15vw;
 }
 
 .song{
-    align-content:center; 
+    align-items: center;
     display: flex;
-    flex-direction: row-reverse;
-    justify-content:left;
-    background-color:grey;
+    flex-direction: row;
+    justify-content:space-between;
 }
 
 .left{
-    align-self: left;
+    float:left;
 }
 .right{
-    align-self: right;
+    float: right;
+    
+}
+#songs{
+    display:flex;
+    flex-direction: column;
+    
 }
