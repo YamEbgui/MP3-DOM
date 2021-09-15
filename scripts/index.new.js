@@ -252,8 +252,19 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
 
 //Inserts all songs in the player as DOM elements into the songs list.
 function generateSongs() {
+  if(songsExistsInHtml != 0){
+    let songDiv=document.getElementById("songs");
+    let elementToRemove=songDiv.firstElementChild;
+    while(songDiv.children.length != 1){
+      elementToRemove=songDiv.children[1];
+      songDiv.removeChild(elementToRemove);
+    }
+    songsExistsInHtml=0;
+  }
+  let arrSongs= player.songs;
+  arrSongs = arrSongs.sort((a,b)=> {if(a['title'].toLowerCase() < b['title'].toLowerCase()) return -1});
   for (let i = songsExistsInHtml ; i < player.songs.length; i++){
-      document.getElementById("songs").append(createSongElement(player.songs[i]));
+      document.getElementById("songs").append(createSongElement(arrSongs[i]));
       songsExistsInHtml++;
   }
 }
