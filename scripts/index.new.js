@@ -31,7 +31,7 @@ function returnPropItem(playerList,id){
     return returnPropItem(playerList.slice(1),id);
   }
 }
-
+//get list of items and check if exist by checking is id.
 function isIdExist(List , id){
   for(let i = 0; i < List.length; i++){
     if (List[i].id === id){
@@ -40,7 +40,7 @@ function isIdExist(List , id){
   }
   return false;
 }
-
+//return the playlist duration by sums up all songs in the playlist
 function playlistDuration(id) {
   let duration = 0;
   if (!isIdExist(player.playlists , id)){
@@ -52,7 +52,7 @@ function playlistDuration(id) {
   }
   return duration;
 }
-
+//return Id for new song that I add to the songs list 
 function numberForId(playerList){
   let arr=[];
   for (let i = 0 ; i < playerList.length ; i++){
@@ -71,14 +71,14 @@ function numberForId(playerList){
   id = arr.length+1;
   return id;
 }
-
+//gets time by ms:ss and return it in seconds 
 function timeConventorToSeconds(time){
   let arr = time.split('');
   let min = (parseInt(arr[0])*10)+parseInt(arr[1]);
   let sec = parseInt(arr[3]+arr[4]);
   return (min * 60) + sec;
 }
-
+// delete song from songs list of the player
 function removeSongFromPlayerById(songs , id){
 if (songs.length === 0){
   return [];
@@ -88,7 +88,7 @@ if (songs.length === 0){
   return [songs[0]].concat(removeSongFromPlayerById(songs.slice(1) , id));
 }
 }
-
+// function that adds song(creates object- song) to the songs list of player
 function addSongPlayer(title, album, artist, duration, coverArt, id) {
   let newId=id;
   if (isIdExist(player.songs , id)){
@@ -104,7 +104,7 @@ function addSongPlayer(title, album, artist, duration, coverArt, id) {
   player.songs[player.songs.length-1].album= album;
   player.songs[player.songs.length-1].coverArt= coverArt;
 }
-
+//return song from the player songs list 
 function getSongFromId(songs , id){
   for(let i = 0; i < songs.length; i++){
     if (songs[i].id === id){
@@ -112,13 +112,44 @@ function getSongFromId(songs , id){
     }
   }
 }
+//delete song from songs list(list of the playlist)
+function removeFromPlaylistSongsList(songs , id){
+  if(songs.length === 0){
+    return [];
+  }else if (songs[0] === id){
+    return removeFromPlaylistSongsList(songs.slice(1) , id);
+  }else{
+    return [songs[0]].concat(removeFromPlaylistSongsList(songs.slice(1) , id));
+  }
+}
+//check if song exist in the playlists
+function isExistOnPlaylist(playlists, id){
+  for (let i = 0 ; i < playlists.length ; i++ ){
+    for (let j = 0 ; j < playlists[i].songs.length ;j++){
+      if (playlists[i].songs[j] === id){
+        return true;
+      }
+    }
+  }
+  return false;
+}
+//remove empty playlist from the list of playlists
+function removeEmptyPlaylist(playlists){
+  if(playlists.length === 0){
+    return [];
+  }else if (playlists[0].songs.length === 0){
+    return removeEmptyPlaylist(playlists.slice(1));
+  }else {
+    return [playlists[0]].concat(removeEmptyPlaylist(playlists.slice(1)));
+  }
+
+}
 
 
 // Plays a song from the player.
 //Playing a song means changing the visual indication of the currently playing song.
 //@param {Number} songId - the ID of the song to play
 function playSong(songId) {
-  console.log(isIdExist(player.songs , songId));
   if (isIdExist(player.songs , songId) && playingNow !== songId) {
     playingNow = songId;
     let songEl = document.getElementById(playingNow+"");
@@ -148,7 +179,15 @@ function playSong(songId) {
 
 //Removes a song from the player, and updates the DOM to match.
 function removeSong(songId) {
-player.songs=removeSongFromPlayerById(player.songs , songId);
+player.songs=removeSongFromPlayerById(player.songs , parseInt(songId));
+//checking if song exist in playlists and remove it if exist
+if (isExistOnPlaylist(player.playlists, parseInt(songId))){
+  for (let i = 0 ; i < player.playlists.length ; i++){
+    player.playlists[i].songs=removeFromPlaylistSongsList(player.playlists[i].songs,parseInt(songId));
+  }
+  player.playlists = removeEmptyPlaylist(player.playlists);
+  generatePlaylists();
+}
 let songEl = document.getElementById(songId+"");
 songsExistsInHtml--;
 songEl.remove();
@@ -157,8 +196,6 @@ songEl.remove();
 
 //Adds a song to the player, and updates the DOM to match.
 function addSong({ title, album, artist, duration, coverArt }) {
-  console.log(title, album, artist, duration,coverArt);
-  console.log(title, album, artist, duration,coverArt);
   addSongPlayer(title, album, artist, duration,coverArt);
   generateSongs();
 }
@@ -184,7 +221,6 @@ function handleAddSongEvent(event) {
   let artistNew=document.querySelector("#inputs > input:nth-child(3)").value; 
   let durationNew=document.querySelector("#inputs > input:nth-child(4)").value; 
   let coverNew=document.querySelector("#inputs > input:nth-child(5)").value; 
-  console.log( coverNew);
   addSong({ title : titleNew, album : albumNew, artist : artistNew, duration : durationNew, coverArt : coverNew })
 }
 
@@ -252,6 +288,7 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
 
 //Inserts all songs in the player as DOM elements into the songs list.
 function generateSongs() {
+  //check if the function worked before and remove the elements it create
   if(songsExistsInHtml != 0){
     let songDiv=document.getElementById("songs");
     let elementToRemove=songDiv.firstElementChild;
@@ -259,10 +296,13 @@ function generateSongs() {
       elementToRemove=songDiv.children[1];
       songDiv.removeChild(elementToRemove);
     }
-    songsExistsInHtml=0;
+    songsExistsInHtml = 0;
   }
+  //sort the player songs list by their title
   let arrSongs= player.songs;
-  arrSongs = arrSongs.sort((a,b)=> {if(a['title'].toLowerCase() < b['title'].toLowerCase()) return -1});
+  arrSongs = arrSongs.sort((a,b) => {if(a['title'].toLowerCase() < b['title'].toLowerCase()) return -1});
+  player.songs = arrSongs;
+  //create elements in DOM for the song list that exist in the player
   for (let i = songsExistsInHtml ; i < player.songs.length; i++){
       document.getElementById("songs").append(createSongElement(arrSongs[i]));
       songsExistsInHtml++;
@@ -271,6 +311,21 @@ function generateSongs() {
 
 // Inserts all playlists in the player as DOM elements into the playlists list.
 function generatePlaylists() {
+   //check if the function worked before and remove the elements it create
+  if(playlistsExistsInHtml != 0){
+    let playlistDiv=document.getElementById("playlists");
+    let elementToRemove=playlistDiv.firstElementChild;
+    while(playlistDiv.children.length != 1){
+      elementToRemove=playlistDiv.children[1];
+      playlistDiv.removeChild(elementToRemove);
+    }
+    playlistsExistsInHtml=0;
+  }
+  //sort the player playlists list by their title
+  let arrPlaylists = player.playlists;
+  arrPlaylists = arrPlaylists.sort((a,b)=> {if(a['name'].toLowerCase() < b['name'].toLowerCase()) return -1});
+  player.playlists = arrPlaylists;
+  //create elements in DOM for the playlist list that exist in the player
   for (let i = playlistsExistsInHtml ; i < player.playlists.length; i++){
       document.getElementById("playlists").append(createPlaylistElement(player.playlists[i]));
       playlistsExistsInHtml++;
