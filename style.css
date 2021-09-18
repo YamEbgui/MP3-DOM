@@ -1,30 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
 
-/* This is id selectors*/
-#add-button{
-    display:table;
-    margin:0 auto;
-    margin-top:1vh;
-    width:100%;
-
-}
-#inputs{
-    display: flex;
-    justify-content: space-between;
-    max-width:100% ;
-    margin: 0vw;
-    
-    
-}
-#songs{
-    display:flex;
-    flex-direction: column;
-    
-}
-
 /* This is elements selectors*/
 body{
-    background-color: khaki;
+    background-color:rosybrown;
 }
 span{
     border:black 1px solid;
@@ -64,7 +42,6 @@ button{
     
 }
 img{
-    border:grey 1px solid;
     border-radius: 7%;
     height:30vh;
     width:20vw;
@@ -74,7 +51,14 @@ img{
 h1 , h2{
     text-align: center;
     font-family: 'Luckiest Guy', 'Ariel';
-    font-size: 4vw;
+    font-size: 5vw;
+    color: maroon;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 5px black;
+}
+h1{
+    font-size: 6vw;
+    text-decoration: underline;
 }
 
 /* This is class selectors*/
@@ -108,3 +92,26 @@ h1 , h2{
     float: left;
     
 }
+
+/* This is id selectors*/
+#add-button{
+    display:table;
+    margin:0 auto;
+    margin-top:1vh;
+    width:100%;
+
+}
+#inputs{
+    display: flex;
+    justify-content: space-between;
+    max-width:100% ;
+    margin: 0vw;
+    
+    
+}
+#songs{
+    display:flex;
+    flex-direction: column;
+    
+}
+
