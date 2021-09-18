@@ -1,1 +1,117 @@
-/* Your code here */
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
+/* This is elements selectors*/
+body{
+    background-color:rosybrown;
+}
+span{
+    border:black 1px solid;
+    border-radius: 15%;
+    background-color:silver;
+    font-family: 'Luckiest Guy', 'Ariel';
+    margin-top: 1vh;
+    justify-content: space-between;
+    display: block;
+    margin-left: 15vw;
+    height:4vh ;
+    width:25vw ;
+    font-size: 2vw;
+    overflow: hidden;
+
+}
+input{
+    font-family: 'Luckiest Guy', 'Ariel';
+    width: 18.5vw;
+    max-width: 18.5vw;
+    font-size: 2vw;
+    position:static;
+    margin:0.2vw;
+}
+button{
+    font-family: 'Luckiest Guy', 'Ariel';
+    display: block;
+    left: auto;
+    right: auto;
+    border:black 0.5vw solid;
+    border-radius: 15%;
+    height: 10vh;
+    width: 20vw;
+    margin: 1vh;
+    font-size: 3vw;
+    overflow: hidden;
+    
+}
+img{
+    border-radius: 7%;
+    height:30vh;
+    width:20vw;
+    display: block;
+    margin-left: 15vw;
+}
+h1 , h2{
+    text-align: center;
+    font-family: 'Luckiest Guy', 'Ariel';
+    font-size: 5vw;
+    color: maroon;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 5px black;
+}
+h1{
+    font-size: 6vw;
+    text-decoration: underline;
+}
+
+/* This is class selectors*/
+.song-duration{
+    font-size: 2vw;
+    font-family: 'Luckiest Guy', 'Ariel';
+    border:black 0.5vw solid;
+    border-radius: 15%;
+    background-color: lightskyblue;
+    height: 10vh;
+    width: 20vw;
+
+}
+.song{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content:left;
+    padding-top: 3vh;
+    height: 60vh;
+    background-color:lightslategray;
+    border: black 1px solid;
+    border-radius: 40%;
+    text-align: center;
+    margin-top: 4vh;
+}
+.left{
+    float:left;
+}
+.right{
+    float: left;
+    
+}
+
+/* This is id selectors*/
+#add-button{
+    display:table;
+    margin:0 auto;
+    margin-top:1vh;
+    width:100%;
+
+}
+#inputs{
+    display: flex;
+    justify-content: space-between;
+    max-width:100% ;
+    margin: 0vw;
+    
+    
+}
+#songs{
+    display:flex;
+    flex-direction: column;
+    
+}
+
