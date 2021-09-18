@@ -4,8 +4,7 @@ let songsExistsInHtml = 0
 playlistsExistsInHtml = 0
 
 //Functions from past project that used in this MP3 page
-//help function tha
-t turn time in seconds to ms:sc
+//help function that turn time in seconds to ms:sc
 function timeConventor(duration) {
     if (duration / 60 < 10) {
         if (duration % 60 < 10) {
@@ -165,11 +164,8 @@ function removePlayImageFromSongs() {
         }
     }
 }
-// function removeImageFromSongs(){
-//   for (let element of document.getElementById("songs")){
-//     if (element.)
-//   }
-// }
+
+
 // Plays a song from the player.
 // Playing a song means showing image of play button  on the song section
 function playSong(songId) {
@@ -184,7 +180,7 @@ function playSong(songId) {
         setTimeout(function () {
             removePlayImageFromSongs()
             playSong(playingNow + 1)
-        }, getSongFromId(player.songs, playingNow).duration * 20)
+        }, getSongFromId(player.songs, playingNow).duration * 1000)
     } 
 }
 
